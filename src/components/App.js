@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import SamplePlayers from '../data/SamplePlayers';
-
 import NewPlayersForm from './NewPlayersForm';
 import ScoreBoard from './ScoreBoard';
 import TurnNotice from './TurnNotice';
@@ -12,16 +10,22 @@ class App extends Component {
   state = {
     currentPlayer: 0,
     gamePhase: '',
-    players: SamplePlayers,
+    players: [],
   }
 
   componentDidMount() {
-    // this.hydrateStateWithLocalStorage();
+    this.hydrateStateWithLocalStorage();
 
     window.addEventListener(
       "beforeunload",
       this.saveStateToLocalStorage.bind(this)
     );
+
+    if (this.state.gamePhase === '') {
+      this.setState({
+        gamePhase: 'new'
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -71,11 +75,17 @@ class App extends Component {
 
   resetGame = () => {
     this.setState({
-      players: SamplePlayers,
+      players: [],
       currentPlayer: 0,
       gamePhase: 'new'
     })
   }
+
+  setGamePhase = (phase) => {
+    this.setState({
+      gamePhase: phase
+    })
+  } 
 
   clearScores = () => {
     const newPlayers = this.state.players.map(player => {
@@ -145,6 +155,7 @@ class App extends Component {
               addPointForCurrentPlayer={this.addPointForCurrentPlayer}
               advanceTurn={this.advanceTurn}
               processGameOver={this.processGameOver}
+              setGamePhase={this.setGamePhase}
             />
           </div>
         )}

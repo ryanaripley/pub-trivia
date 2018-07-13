@@ -38,6 +38,7 @@ export default class QuestionDisplay extends Component {
         this.setState({
           questions
         });
+        this.props.setGamePhase('questions');
       } catch(e) { console.log(e); }
     }
   }
@@ -127,6 +128,7 @@ export default class QuestionDisplay extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <p>
