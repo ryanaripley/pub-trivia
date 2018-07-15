@@ -1,6 +1,6 @@
 {
   "homepage": "http://beerhalltrivia.com",
-  "name": "pub-trivia",
+  "name": "beer-hall-trivia",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

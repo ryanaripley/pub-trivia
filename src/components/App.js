@@ -145,11 +145,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Pub trivia</h1>
+          <h1 className="App-title">Beer Hall Trivia</h1>
         </header>
-        <p>
-          What is a game to keep ourselves intellectually stimulated while sipping craft brew?
-        </p>
         {this.state.gamePhase === 'new' && (
           <div className="new-game-view">
             <NewGameForm 
