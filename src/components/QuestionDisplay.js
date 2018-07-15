@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import ScoreBoard from './ScoreBoard';
+import TurnNotice from './TurnNotice';
 import CategorySelection from './CategorySelection';
 import Question from './Question';
 
@@ -126,25 +128,31 @@ export default class QuestionDisplay extends Component {
 
   render() {
     return (
-      <div>
-        <p>
-          There are {this.state.questions.length} questions remaining.&nbsp;
-          <button onClick={this.resetQuestionState}>Reset current questions</button>
-          <button onClick={this.loadNewQuestions}>Load new questions</button>
-        </p>
-        {!this.state.currentQuestion && (
-          <CategorySelection 
-            questions={this.state.questions} 
-            selectCategory={this.selectCategory} 
-        />
-        )}
-        {this.state.currentQuestion && (
-          <Question 
-            question={this.state.questions[this.state.currentQuestion]} 
-            processCorrectAnswer={this.processCorrectAnswer}
-            processIncorrectAnswer={this.processIncorrectAnswer}
+      <div className="Question-display">
+        <div className="App-content">
+          <p>
+            There are {this.state.questions.length} questions remaining.&nbsp;
+          </p>
+          {!this.state.currentQuestion && (
+            <CategorySelection 
+              questions={this.state.questions} 
+              selectCategory={this.selectCategory} 
           />
-        )}
+          )}
+          {this.state.currentQuestion && (
+            <Question 
+              question={this.state.questions[this.state.currentQuestion]} 
+              processCorrectAnswer={this.processCorrectAnswer}
+              processIncorrectAnswer={this.processIncorrectAnswer}
+            />
+          )}
+        </div>
+
+        <div className="App-footer">
+          <ScoreBoard
+            players={this.props.players}
+          />
+        </div>
 
       </div>
     )

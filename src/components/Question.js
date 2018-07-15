@@ -31,11 +31,11 @@ export default class Question extends Component {
   render() {
     const { question } = this.props;
     return (
-      <div>
+      <div className="Question">
         <h4>Category:</h4>
-        <p>{question.category.title}</p>
+        <p className="category">{question.category.title}</p>
         <h4>Question:</h4>
-        <p>{question.question}</p>
+        <p className="question">{question.question}</p>
         
         <button onClick={this.toggle}>
           {!this.state.showAnswer && ("Show answer")}

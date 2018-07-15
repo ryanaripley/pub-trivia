@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
-import NewGameForm from './NewGameForm';
-import GameSettingsForm from './GameSettingsForm';
-import ScoreBoard from './ScoreBoard';
-import TurnNotice from './TurnNotice';
+import { IconCog } from './IconSet';
+import NewGameDisplay from './NewGameDisplay';
 import QuestionDisplay from './QuestionDisplay';
-import GameOver from './GameOver';
+import GameOverDisplay from './GameOverDisplay';
 
 class App extends Component {
+  /* Sample players: {name: "Ryan", score: 7},{name: "Marit", score: 10} */
   state = {
     currentPlayer: 0,
     gamePhase: '',
@@ -146,45 +145,28 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Beer Hall Trivia</h1>
+          <IconCog />
         </header>
         {this.state.gamePhase === 'new' && (
-          <div className="new-game-view">
-            <NewGameForm 
-              loadGameInfo={this.loadGameInfo} 
-            />
-          </div>
+          <NewGameDisplay 
+            loadGameInfo={this.loadGameInfo} 
+          />
         )}
-        {/* {this.state.gamePhase === 'loadingQuestions' && (
-          <p>Loading new questions...</p>
-        )} */}
         {this.state.gamePhase === 'questions' && (
-          <div>
-            <ScoreBoard players={this.state.players} />
-            <TurnNotice players={this.state.players} currentPlayer={this.state.currentPlayer} /> 
-            <QuestionDisplay 
-              gameSettings={this.state.gameSettings}
-              addPointForCurrentPlayer={this.addPointForCurrentPlayer}
-              advanceTurn={this.advanceTurn}
-              processGameOver={this.processGameOver}
-              setGamePhase={this.setGamePhase}
-            />
-          </div>
+          <QuestionDisplay 
+            gameSettings={this.state.gameSettings}
+            players={this.state.players}
+            addPointForCurrentPlayer={this.addPointForCurrentPlayer}
+            advanceTurn={this.advanceTurn}
+            processGameOver={this.processGameOver}
+            setGamePhase={this.setGamePhase}
+          />
         )}
         {this.state.gamePhase === 'gameover' && (
-          <div>
-            <ScoreBoard players={this.state.players} />
-            <GameOver 
-              players={this.state.players}
-            />
-            <button onClick={this.resetGame}>New game</button>
-          </div>
+          <GameOverDisplay
+            players={this.state.players}
+          />
         )}
-        <hr />
-        <button onClick={this.addPointForCurrentPlayer}>Point for current player</button>
-        <button onClick={this.advanceTurn}>Advance turn</button>
-        <button onClick={this.clearScores}>Clear scores</button>
-        <button onClick={this.processGameOver}>End Game</button>
-        <button onClick={this.nukeLocalStorage}>Nuke local storage</button>
       </div>
     );
   }
