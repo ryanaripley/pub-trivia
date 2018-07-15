@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import SampleQuestions from '../data/SampleQuestions';
-
 import CategorySelection from './CategorySelection';
 import Question from './Question';
 
@@ -23,17 +21,18 @@ export default class QuestionDisplay extends Component {
 
   async componentDidMount() {
     // try to get state from localStorage
-    this.hydrateStateWithLocalStorage();
+    // this.hydrateStateWithLocalStorage();
 
-    window.addEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
+    // window.addEventListener(
+    //   "beforeunload",
+    //   this.saveStateToLocalStorage.bind(this)
+    // );
 
     // if no questions were loaded from localStorage, fetch new
     if (this.state.questions.length === 0) {
       try {
-        const res = await fetch('http://jservice.io/api/random?count=10');
+        const { numberOfQuestions } = this.props.gameSettings;
+        const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions}`);
         const questions = await res.json();
         this.setState({
           questions
@@ -44,17 +43,14 @@ export default class QuestionDisplay extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
+    // window.removeEventListener(
+    //   "beforeunload",
+    //   this.saveStateToLocalStorage.bind(this)
+    // );
 
-    // saves if component has a chance to unmount
-    this.saveStateToLocalStorage();
+    // // saves if component has a chance to unmount
+    // this.saveStateToLocalStorage();
   }
-
-  // loadNewQuestions = () => {
-
 
   selectCategory = (e) => {
     const pickedQuestion = e.target.dataset.cat;
@@ -89,6 +85,7 @@ export default class QuestionDisplay extends Component {
 
   processGameOver = () => {
     // query new questions
+    this.resetQuestionState();
     this.props.processGameOver();
   }
 
@@ -122,13 +119,12 @@ export default class QuestionDisplay extends Component {
 
   resetQuestionState = () => {
     this.setState({
-      questions: SampleQuestions,
+      questions: [],
       currentQuestion: null
     })
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <p>

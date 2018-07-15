@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import NewPlayersForm from './NewPlayersForm';
+import NewGameForm from './NewGameForm';
+import GameSettingsForm from './GameSettingsForm';
 import ScoreBoard from './ScoreBoard';
 import TurnNotice from './TurnNotice';
 import QuestionDisplay from './QuestionDisplay';
@@ -11,34 +12,40 @@ class App extends Component {
     currentPlayer: 0,
     gamePhase: '',
     players: [],
+    gameSettings: {
+      numberOfQuestions: 50,
+      readQuestionsAlound: false
+    },
   }
 
   componentDidMount() {
-    this.hydrateStateWithLocalStorage();
+    // this.hydrateStateWithLocalStorage();
 
-    window.addEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
+    // window.addEventListener(
+    //   "beforeunload",
+    //   this.saveStateToLocalStorage.bind(this)
+    // );
 
+    // if noting was recovered from local storage, reset everything
     if (this.state.gamePhase === '') {
       this.setState({
-        gamePhase: 'new'
+        gamePhase: 'new',
+        players: []
       })
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
+    // window.removeEventListener(
+    //   "beforeunload",
+    //   this.saveStateToLocalStorage.bind(this)
+    // );
 
-    // saves if component has a chance to unmount
-    this.saveStateToLocalStorage();
+    // // saves if component has a chance to unmount
+    // this.saveStateToLocalStorage();
   }
 
-  addNewPlayers = (newPlayers) => {
+  loadGameInfo = (newPlayers, settings) => {
     const players = newPlayers.map(player => {
       return ({
         name: player,
@@ -49,6 +56,10 @@ class App extends Component {
       players,
       gamePhase: 'questions'
     })
+  }
+
+  updateSettings = (newSettings) => {
+    // update settings
   }
 
   addPointForCurrentPlayer = () => {
@@ -140,18 +151,21 @@ class App extends Component {
           What is a game to keep ourselves intellectually stimulated while sipping craft brew?
         </p>
         {this.state.gamePhase === 'new' && (
-          <NewPlayersForm 
-            addNewPlayers={this.addNewPlayers}
-          />
+          <div className="new-game-view">
+            <NewGameForm 
+              loadGameInfo={this.loadGameInfo} 
+            />
+          </div>
         )}
-        {this.state.gamePhase === 'loadingQuestions' && (
+        {/* {this.state.gamePhase === 'loadingQuestions' && (
           <p>Loading new questions...</p>
-        )}
+        )} */}
         {this.state.gamePhase === 'questions' && (
           <div>
             <ScoreBoard players={this.state.players} />
             <TurnNotice players={this.state.players} currentPlayer={this.state.currentPlayer} /> 
             <QuestionDisplay 
+              gameSettings={this.state.gameSettings}
               addPointForCurrentPlayer={this.addPointForCurrentPlayer}
               advanceTurn={this.advanceTurn}
               processGameOver={this.processGameOver}

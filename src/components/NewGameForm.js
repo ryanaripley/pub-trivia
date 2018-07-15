@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class NewPlayersForm extends Component {
+export default class newGameForm extends Component {
 
   state = {
     input: '',
@@ -29,7 +29,7 @@ export default class NewPlayersForm extends Component {
   }
 
   startGame = () => {
-    this.props.addNewPlayers(this.state.newPlayers);
+    this.props.loadGameInfo(this.state.newPlayers);
   }
 
   render() {
@@ -55,7 +55,12 @@ export default class NewPlayersForm extends Component {
             value="Add player"
           />
         </form>
-        <button onClick={this.startGame}>Start game!</button>
+        {/* <h3>Game settings</h3>
+        <p>
+          <input type="checkbox" checked="true" />Read questions out loud<br />
+        </p> */}
+
+        <button disabled={newPlayers.length === 0} onClick={this.startGame}>Start game!</button>
       </div>
     )
   }
