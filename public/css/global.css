@@ -36,7 +36,7 @@ input[type="button"] {
   margin: 0 .4em .4em 0;
   color: white;
   text-align: center;
-  font-size: 1em;
+  font-size: .9em;
   font-weight: normal;
   line-height: 1.2em;
   letter-spacing: .1rem;
@@ -100,7 +100,7 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
-  font-size: 1em;
+  font-size: .9em;
   height: 2em;
   margin: 0 .4em .4em 0;
   padding: .5em 1em; /* The 6px vertically centers text on FF, ignored by Webkit */
@@ -176,7 +176,7 @@ input[type="radio"] {
   color: white;
   height: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  font-size: 1.4em;
+  font-size: 1.2em;
   position: relative;
 }
 
@@ -191,7 +191,10 @@ input[type="radio"] {
 .App-title {
   font-size: 1.2em;
   font-weight: normal;
+  letter-spacing: .1em;
   margin: 0 auto 0 0;
+  text-transform: uppercase;
+
 }
 
 .App-header .icon-cog {
@@ -210,10 +213,14 @@ input[type="radio"] {
 }
 
 .App-content {
-  padding: 3em 1em 3em;;
+  margin: 0 auto;
+  max-width: 50em;
+  padding: 3em 1em 3em;
 }
 
-
+.turn-notice {
+  margin-top: 0;
+}
 
 .App-footer {
   background: #333;
@@ -226,8 +233,17 @@ input[type="radio"] {
 }
 
 .App-footer button {
-  font-size: 1.2em;
+  font-size: 1em;
   margin: 0;
+}
+
+.Score-board h3 {
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: .1em;
+  margin: 0 0 .4em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .Score-board ul {
@@ -251,8 +267,12 @@ input[type="radio"] {
 }
 
 .Score-board .player-score {
-  font-size: 1.4em;
+  font-size: 1.2em;
   display: block;
+}
+
+.Score-board .current-player {
+  background: rgba(255,255,255,.2);
 }
 
 .Category-selection ul {

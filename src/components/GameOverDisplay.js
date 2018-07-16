@@ -11,7 +11,7 @@ export default class GameOver extends Component {
     const winnerNames = winners.map(winner => winner.name);
     const winnersList = arrayToSentence(winnerNames);
     return (
-      <div>
+      <div className="App-content">
         <h2>Game Over</h2>
         <p>
           {winnersList} won.

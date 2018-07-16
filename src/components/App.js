@@ -155,6 +155,7 @@ class App extends Component {
         {this.state.gamePhase === 'questions' && (
           <QuestionDisplay 
             gameSettings={this.state.gameSettings}
+            currentPlayer={this.state.currentPlayer}
             players={this.state.players}
             addPointForCurrentPlayer={this.addPointForCurrentPlayer}
             advanceTurn={this.advanceTurn}

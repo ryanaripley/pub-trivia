@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 
 import ScoreBoard from './ScoreBoard';
-import TurnNotice from './TurnNotice';
 import CategorySelection from './CategorySelection';
 import Question from './Question';
-
 
 export default class QuestionDisplay extends Component {
   
@@ -127,11 +125,14 @@ export default class QuestionDisplay extends Component {
   }
 
   render() {
+    const {currentPlayer, players } = this.props;
+    const playerName = players[currentPlayer]["name"];
     return (
       <div className="Question-display">
         <div className="App-content">
+          <h2 className="turn-notice"> It's {playerName}'s turn. </h2>
           <p>
-            There are {this.state.questions.length} questions remaining.&nbsp;
+           There are {this.state.questions.length} questions remaining.&nbsp;
           </p>
           {!this.state.currentQuestion && (
             <CategorySelection 
@@ -150,7 +151,8 @@ export default class QuestionDisplay extends Component {
 
         <div className="App-footer">
           <ScoreBoard
-            players={this.props.players}
+            currentPlayer={currentPlayer}
+            players={players}
           />
         </div>
 
