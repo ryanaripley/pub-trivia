@@ -10,7 +10,7 @@ import SampleQuestions from '../data/SampleQuestions';
 export default class QuestionDisplay extends Component {
   
   state = {
-    questions: SampleQuestions,
+    questions: [],
     questionsLoading: false,
     currentQuestion: null
     /**
@@ -30,9 +30,13 @@ export default class QuestionDisplay extends Component {
     //   "beforeunload",
     //   this.saveStateToLocalStorage.bind(this)
     // );
-
-    // if no questions were loaded from localStorage, fetch new
-    if (this.state.questions.length === 0) {
+    console.log(this.props.gameSettings);
+    if (this.props.gameSettings.useSampleQuestions) {
+      this.setState({
+        questions: SampleQuestions
+      })
+    } else if (this.state.questions.length === 0) {
+      // if no questions were loaded from localStorage, fetch new
       try {
         const { numberOfQuestions } = this.props.gameSettings;
         const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions}`);
@@ -75,13 +79,11 @@ export default class QuestionDisplay extends Component {
   }
 
   processCorrectAnswer = () => {
-    console.log('processing correct answer');
     this.deleteCurrentQuestion();
     this.props.addPointForCurrentPlayer();
   }
 
   processIncorrectAnswer = () => {
-    console.log('processing incorrect answer');
     this.deleteCurrentQuestion();
     this.props.advanceTurn();
   }
@@ -145,6 +147,7 @@ export default class QuestionDisplay extends Component {
           )}
           {this.state.currentQuestion && (
             <Question 
+              gameSettings={this.props.gameSettings}
               question={this.state.questions[this.state.currentQuestion]} 
               processCorrectAnswer={this.processCorrectAnswer}
               processIncorrectAnswer={this.processIncorrectAnswer}

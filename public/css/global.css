@@ -201,12 +201,19 @@ input[type="radio"] {
 }
 
 .Game-settings-toggle svg {
+  cursor: pointer;
   height: 2.6rem;
   padding: .6rem ;
   width: 2.6rem;
 }
 
-.App-header .icon-cog path {
+.Game-settings-toggle svg path {
+  fill: white;
+  transition: fill .05s ease-in-out;
+}
+
+.Game-settings-toggle:hover svg path {
+  fill: var(--color-background);
 }
 
 .New-game-display,
@@ -238,6 +245,35 @@ input[type="radio"] {
 .App-footer button {
   font-size: 1em;
   margin: 0;
+}
+
+.App-settings {
+  background: #444;
+  height: 100%;
+  margin-top: 2.6rem;
+  padding: 1em;
+  position: fixed;
+  right: -18rem;
+  transition: right .2s ease-in-out;
+  width: 18rem;
+  z-index: 5;
+}
+
+.App.settings-menu-open .App-settings {
+  right: 0;
+}
+
+.App-settings h2 {
+  font-weight: normal;
+  margin: 0 0 1em;
+}
+
+.App-settings label {
+  font-weight: normal;
+}
+
+.App-settings input[type="submit"] {
+  margin: 2em 0;
 }
 
 .Score-board h3 {

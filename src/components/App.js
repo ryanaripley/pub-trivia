@@ -13,8 +13,9 @@ class App extends Component {
     gamePhase: '',
     players: [],
     gameSettings: {
+      useSampleQuestions: false,
       numberOfQuestions: 50,
-      readQuestionsAlound: false
+      readQuestions: false
     },
     settingsMenuOpen: false,
   }
@@ -60,12 +61,21 @@ class App extends Component {
   }
 
   updateSettings = (newSettings) => {
-    // update settings
+    console.log(newSettings);
+    this.setState({
+      gameSettings: newSettings
+    })
   }
 
   toggleSettingsMenu = () => {
     this.setState({
       settingsMenuOpen: !this.state.settingsMenuOpen
+    })
+  }
+
+  closeSettingsMenu = () => {
+    this.setState({
+      settingsMenuOpen: false
     })
   }
 
@@ -159,6 +169,11 @@ class App extends Component {
             settingsMenuOpen={this.state.settingsMenuOpen}
           />
         </header>
+        <GameSettings 
+          gameSettings={this.state.gameSettings}
+          updateSettings={this.updateSettings}
+          closeSettingsMenu={this.closeSettingsMenu}
+        />
         {this.state.gamePhase === 'new' && (
           <NewGameDisplay 
             loadGameInfo={this.loadGameInfo} 

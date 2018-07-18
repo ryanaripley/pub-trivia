@@ -8,7 +8,7 @@ export default class Question extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.questionRead) {
+    if (!this.state.questionRead && this.props.gameSettings.readQuestions) {
       this.readTheQuestion();
       this.setState({
         questionRead: true
