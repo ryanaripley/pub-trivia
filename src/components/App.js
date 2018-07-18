@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { IconCog } from './IconSet';
+import GameSettings from './GameSettings';
+import GameSettingsToggle from './GameSettingsToggle';
 import NewGameDisplay from './NewGameDisplay';
 import QuestionDisplay from './QuestionDisplay';
 import GameOverDisplay from './GameOverDisplay';
@@ -15,6 +16,7 @@ class App extends Component {
       numberOfQuestions: 50,
       readQuestionsAlound: false
     },
+    settingsMenuOpen: false,
   }
 
   componentDidMount() {
@@ -59,6 +61,12 @@ class App extends Component {
 
   updateSettings = (newSettings) => {
     // update settings
+  }
+
+  toggleSettingsMenu = () => {
+    this.setState({
+      settingsMenuOpen: !this.state.settingsMenuOpen
+    })
   }
 
   addPointForCurrentPlayer = () => {
@@ -141,11 +149,15 @@ class App extends Component {
   }
   
   render() {
+    const appClass = this.state.settingsMenuOpen ? "App settings-menu-open" : "App";
     return (
-      <div className="App">
+      <div className={appClass}>
         <header className="App-header">
           <h1 className="App-title">Beer Hall Trivia</h1>
-          <IconCog />
+          <GameSettingsToggle
+            toggleSettingsMenu={this.toggleSettingsMenu}
+            settingsMenuOpen={this.state.settingsMenuOpen}
+          />
         </header>
         {this.state.gamePhase === 'new' && (
           <NewGameDisplay 

@@ -4,10 +4,13 @@ import ScoreBoard from './ScoreBoard';
 import CategorySelection from './CategorySelection';
 import Question from './Question';
 
+import SampleQuestions from '../data/SampleQuestions';
+
+
 export default class QuestionDisplay extends Component {
   
   state = {
-    questions: [],
+    questions: SampleQuestions,
     questionsLoading: false,
     currentQuestion: null
     /**

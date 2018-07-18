@@ -11,6 +11,7 @@ html {
 }
 
 body, #root {
+  background: var(--color-background);
   height: 100%;
 }
 
@@ -183,27 +184,29 @@ input[type="radio"] {
 .App-header {
   background: #333;
   display: flex;
-  padding: .4em .8em;
+  height: 2.6rem;
+  padding: 0;
   position: fixed;
   width: 100%;
 }
 
 .App-title {
-  font-size: 1.2em;
+  font-size: 1.4rem;
   font-weight: normal;
   letter-spacing: .1em;
+  line-height: 1.4rem;
+  padding: .6rem 1.2rem;
   margin: 0 auto 0 0;
   text-transform: uppercase;
-
 }
 
-.App-header .icon-cog {
-  height: 1.2em;
-  width: 1.2em;
+.Game-settings-toggle svg {
+  height: 2.6rem;
+  padding: .6rem ;
+  width: 2.6rem;
 }
 
 .App-header .icon-cog path {
-  fill: white;
 }
 
 .New-game-display,

@@ -13,6 +13,18 @@ export function IconCog(props) {
 	)
 };
 
+export function IconX(props) {
+	const iconFill = props.fill || '#000';
+	const iconHeight = props.height || "8";
+	const iconWidth = props.width || "8";
+	
+	return (
+		<svg className="icon-x" xmlns="http://www.w3.org/2000/svg" width={iconWidth} height={iconHeight} viewBox="0 0 8 8">
+			<path fill={iconFill} d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" />
+		</svg>
+	)
+}
+
 export function IconHome(props) {
 	const iconFill = props.fill || '#000';
 	const iconHeight = props.height || "8";
