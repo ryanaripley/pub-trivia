@@ -24,6 +24,11 @@ export default class GameSettings extends Component {
       <div className="App-settings">
         <h2>Game settings</h2>
         <form className="App-settings-form" onSubmit={this.updateGameSettings}>
+        <label htmlFor="gameMode">Game Mode</label>
+        <select id="gameMode" name="gameMode" onChange={this.handleInputChange}>
+          <option value="turn-based">Turn-based mode</option>
+          <option value="shout-out">Shout out mode</option>
+        </select>
         <label>
           <input
             name="readQuestions"

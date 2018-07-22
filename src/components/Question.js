@@ -22,14 +22,8 @@ export default class Question extends Component {
     synth.speak(utterThis);
   }
 
-  toggle = () => {
-    this.setState({
-      showAnswer: !this.state.showAnswer,
-    })
-  }
-
   render() {
-    const { question } = this.props;
+    const { question, showAnswer } = this.props;
     return (
       <div className="Question">
         <h4>Category:</h4>
@@ -37,16 +31,20 @@ export default class Question extends Component {
         <h4>Question:</h4>
         <p className="question">{question.question}</p>
         
-        <button onClick={this.toggle}>
-          {!this.state.showAnswer && ("Show answer")}
-          {this.state.showAnswer && ("Hide answer")}
+        <button onClick={this.props.toggleShowAnswer}>
+          {!showAnswer && ("Show answer")}
+          {showAnswer && ("Hide answer")}
         </button>
-        {this.state.showAnswer && (
+        {showAnswer && (
           <div className="answer">
             <h4>Answer:</h4>
             <p>{question.answer}</p>
-            <button onClick={this.props.processCorrectAnswer}>Correct!</button>
-            <button onClick={this.props.processIncorrectAnswer}>#nope</button>
+            {this.props.gameSettings.gameMode === 'turn-based' && ( 
+              <div>
+                <button onClick={this.props.processCorrectAnswer}>Correct!</button>
+                <button onClick={this.props.processIncorrectAnswer}>#nope</button>
+              </div>
+            )}
           </div>
         )}
       </div>

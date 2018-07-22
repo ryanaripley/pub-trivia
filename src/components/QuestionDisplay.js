@@ -12,7 +12,9 @@ export default class QuestionDisplay extends Component {
   state = {
     questions: [],
     questionsLoading: false,
-    currentQuestion: null
+    showAnswer: false,
+    currentQuestion: null,
+    scoringPhase: false
     /**
      * Game phases:
      * 0 : categories
@@ -30,7 +32,6 @@ export default class QuestionDisplay extends Component {
     //   "beforeunload",
     //   this.saveStateToLocalStorage.bind(this)
     // );
-    console.log(this.props.gameSettings);
     if (this.props.gameSettings.useSampleQuestions) {
       this.setState({
         questions: SampleQuestions
@@ -78,6 +79,12 @@ export default class QuestionDisplay extends Component {
     }
   }
 
+  toggleShowAnswer = () => {
+    this.setState({
+      showAnswer: !this.state.showAnswer,
+    })
+  }
+
   processCorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.addPointForCurrentPlayer();
@@ -86,6 +93,12 @@ export default class QuestionDisplay extends Component {
   processIncorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.advanceTurn();
+  }
+
+  moveToScoringPhase = () => {
+    this.setState({
+      scoringPhase: true
+    })
   }
 
   processGameOver = () => {
@@ -151,6 +164,9 @@ export default class QuestionDisplay extends Component {
               question={this.state.questions[this.state.currentQuestion]} 
               processCorrectAnswer={this.processCorrectAnswer}
               processIncorrectAnswer={this.processIncorrectAnswer}
+              moveToScoringPhase={this.moveToScoringPhase}
+              showAnswer={this.state.showAnswer}
+              toggleShowAnswer={this.toggleShowAnswer}
             />
           )}
         </div>
@@ -158,7 +174,11 @@ export default class QuestionDisplay extends Component {
         <div className="App-footer">
           <ScoreBoard
             currentPlayer={currentPlayer}
+            gameSettings={this.props.gameSettings}
             players={players}
+            processNextQuestion={this.processNextQuestion}
+            showAnswer={this.state.showAnswer}
+            updatePlayerScore={this.props.updatePlayerScore}
           />
         </div>
 

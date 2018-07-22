@@ -10,12 +10,13 @@ class App extends Component {
   /* Sample players: {name: "Ryan", score: 7},{name: "Marit", score: 10} */
   state = {
     currentPlayer: 0,
-    gamePhase: '',
-    players: [],
+    gamePhase: 'questions',
+    players: [{name: "Ryan", score: 7},{name: "Marit", score: 10}],
     gameSettings: {
-      useSampleQuestions: false,
+      gameMode: 'shout-out', // or 'shout-out'
+      useSampleQuestions: true,
       numberOfQuestions: 50,
-      readQuestions: false
+      readQuestions: true
     },
     settingsMenuOpen: false,
   }
@@ -61,7 +62,6 @@ class App extends Component {
   }
 
   updateSettings = (newSettings) => {
-    console.log(newSettings);
     this.setState({
       gameSettings: newSettings
     })
@@ -83,7 +83,15 @@ class App extends Component {
     const { players, currentPlayer } = this.state;
     players[currentPlayer].score++;
     this.setState({
-      players,
+      players
+    })
+  }
+
+  updatePlayerScore = (playerIndex, scoreChange) => {
+    const { players } = this.state;
+    players[playerIndex].score += scoreChange;
+    this.setState({
+      players
     })
   }
 
@@ -185,6 +193,7 @@ class App extends Component {
             currentPlayer={this.state.currentPlayer}
             players={this.state.players}
             addPointForCurrentPlayer={this.addPointForCurrentPlayer}
+            updatePlayerScore={this.updatePlayerScore}
             advanceTurn={this.advanceTurn}
             processGameOver={this.processGameOver}
             setGamePhase={this.setGamePhase}
