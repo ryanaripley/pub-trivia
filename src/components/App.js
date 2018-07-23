@@ -10,11 +10,11 @@ class App extends Component {
   /* Sample players: {name: "Ryan", score: 7},{name: "Marit", score: 10} */
   state = {
     currentPlayer: 0,
-    gamePhase: 'questions',
-    players: [{name: "Ryan", score: 7},{name: "Marit", score: 10}],
+    gamePhase: '',
+    players: [],
     gameSettings: {
       gameMode: 'shout-out', // or 'shout-out'
-      useSampleQuestions: true,
+      useSampleQuestions: false,
       numberOfQuestions: 50,
       readQuestions: true
     },

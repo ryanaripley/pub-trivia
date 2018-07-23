@@ -14,7 +14,6 @@ export default class QuestionDisplay extends Component {
     questionsLoading: false,
     showAnswer: false,
     currentQuestion: null,
-    scoringPhase: false
     /**
      * Game phases:
      * 0 : categories
@@ -74,6 +73,7 @@ export default class QuestionDisplay extends Component {
       this.setState({
         questions,
         currentQuestion: null,
+        showAnswer: false
       })
       if (this.state.questions.length === 0 ) this.processGameOver();
     }
@@ -85,6 +85,10 @@ export default class QuestionDisplay extends Component {
     })
   }
 
+  processNextQuestion = () => {
+    this.deleteCurrentQuestion();
+  }
+
   processCorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.addPointForCurrentPlayer();
@@ -93,12 +97,6 @@ export default class QuestionDisplay extends Component {
   processIncorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.advanceTurn();
-  }
-
-  moveToScoringPhase = () => {
-    this.setState({
-      scoringPhase: true
-    })
   }
 
   processGameOver = () => {
@@ -148,7 +146,9 @@ export default class QuestionDisplay extends Component {
     return (
       <div className="Question-display">
         <div className="App-content">
-          <h2 className="turn-notice"> It's {playerName}'s turn. </h2>
+          {this.props.gameSettings.gameMode === 'turn-based' && (
+            <h2 className="turn-notice"> It's {playerName}'s turn. </h2>
+          )}
           <p>
            There are {this.state.questions.length} questions remaining.&nbsp;
           </p>

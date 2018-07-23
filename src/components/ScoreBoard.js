@@ -28,8 +28,13 @@ export default class ScoreBoard extends Component {
             </li>
           )
         })}
+        {showAnswer && (
+          <li>
+            <button onClick={this.props.processNextQuestion} className="next-question">Next question &rarr;</button>
+          </li>
+        )}
         </ul>
-        <button className="next-question">Next question &rarr;</button>
+        
       </div>
     )
   }
