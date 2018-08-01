@@ -2,7 +2,7 @@ const SampleQuestions = [
   {
   "id": 1,
   "answer": "Election Day",
-  "question": "1st Tuesday after the 1st Monday in November",
+  "question": "1st Tuesday after the 1st Monday in November seen here",
   "value": 100,
   "airdate": "1985-02-08T12:00:00.000Z",
   "created_at": "2014-02-11T22:47:18.786Z",
@@ -21,7 +21,7 @@ const SampleQuestions = [
   {
   "id": 2,
   "answer": "the Western division",
-  "question": "The Atlanta Braves are in this division of the National League",
+  "question": "The Atlanta Braves heard here are in this division of the National League",
   "value": 100,
   "airdate": "1985-02-08T12:00:00.000Z",
   "created_at": "2014-02-11T22:47:18.829Z",
@@ -172,7 +172,7 @@ const SampleQuestions = [
   },
   {
   "id": 10,
-  "answer": "<i>Risky Business</i>",
+  "answer": "",
   "question": "Title describing Tom Cruise's precarious commercial enterprise",
   "value": 200,
   "airdate": "1985-02-08T12:00:00.000Z",

@@ -32,15 +32,18 @@ export default class QuestionDisplay extends Component {
     //   this.saveStateToLocalStorage.bind(this)
     // );
     if (this.props.gameSettings.useSampleQuestions) {
+      const questions = this.filterQuestions(SampleQuestions, 5);
       this.setState({
-        questions: SampleQuestions
+        questions
       })
     } else if (this.state.questions.length === 0) {
       // if no questions were loaded from localStorage, fetch new
       try {
         const { numberOfQuestions } = this.props.gameSettings;
-        const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions}`);
-        const questions = await res.json();
+        // fetch 10 extra questions in order to filter out duds
+        const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions + 10}`);
+        const unfilteredQuestions = await res.json();
+        const questions = this.filterQuestions(unfilteredQuestions, numberOfQuestions);
         this.setState({
           questions
         });
@@ -57,6 +60,17 @@ export default class QuestionDisplay extends Component {
 
     // // saves if component has a chance to unmount
     // this.saveStateToLocalStorage();
+  }
+
+  filterQuestions = (questions, number) => {
+    // Make sure questions all have cat, question, answer, 
+    // and don't contain "seen here" or "heard here"
+    const filteredQuestions = questions.filter(q => {
+      return (!q.question.includes('seen here') && !q.question.includes('heard here'));
+    }).filter(q => {
+      return (q.category.title && q.question && q.answer );
+    }).slice(0, number);
+    return filteredQuestions; 
   }
 
   selectCategory = (e) => {
