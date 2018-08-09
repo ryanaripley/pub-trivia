@@ -19,6 +19,10 @@ export default class GameOver extends Component {
             <span>Ties are cool. Share the victory.</span>
           )}
         </p>
+        <p>
+          <button onClick={this.props.startNewGame}>New game</button><br />
+          <button onClick={this.props.startNewGameSamePlayers}>New game with same players</button>
+        </p>
       </div>
     )
   }

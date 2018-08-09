@@ -14,7 +14,7 @@ class App extends Component {
     players: [],
     gameSettings: {
       gameMode: 'shout-out', // or 'shout-out'
-      useSampleQuestions: false,
+      useSampleQuestions: true,
       numberOfQuestions: 10,
       readQuestions: true
     },
@@ -165,6 +165,24 @@ class App extends Component {
     localStorage.clear();
     this.resetGame();
   }
+
+  startNewGame = () => {
+    this.setState({
+      gamePhase: 'new'
+    });
+  }
+
+  startNewGameSamePlayers = () => {
+      this.clearScores();
+      this.setState({
+        gamePhase: 'questions'
+      });
+    // if( !keepPlayers ) {
+    //   this.setState({
+    //     gamePhase: 'new'
+    //   });
+    // }
+  }
   
   render() {
     const appClass = this.state.settingsMenuOpen ? "App settings-menu-open" : "App";
@@ -202,6 +220,8 @@ class App extends Component {
         {this.state.gamePhase === 'gameover' && (
           <GameOverDisplay
             players={this.state.players}
+            startNewGame={this.startNewGame}
+            startNewGameSamePlayers={this.startNewGameSamePlayers}
           />
         )}
       </div>

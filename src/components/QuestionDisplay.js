@@ -13,14 +13,7 @@ export default class QuestionDisplay extends Component {
     questions: [],
     questionsLoading: false,
     showAnswer: false,
-    currentQuestion: null,
-    /**
-     * Game phases:
-     * 0 : categories
-     * 1 : question
-     * 2 : question and answer
-     * 3 : score and reset
-     */
+    currentQuestion: null
   }
 
   async componentDidMount() {
@@ -41,7 +34,7 @@ export default class QuestionDisplay extends Component {
       try {
         const { numberOfQuestions } = this.props.gameSettings;
         // fetch 10 extra questions in order to filter out duds
-        const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions + 10}`);
+        const res = await fetch(`http://jservice.io/api/random?count=${numberOfQuestions + 15}`);
         const unfilteredQuestions = await res.json();
         const questions = this.filterQuestions(unfilteredQuestions, numberOfQuestions);
         this.setState({
@@ -89,7 +82,7 @@ export default class QuestionDisplay extends Component {
         currentQuestion: null,
         showAnswer: false
       })
-      if (this.state.questions.length === 0 ) this.processGameOver();
+      if (this.state.questions.length === 0 ) this.props.processGameOver();
     }
   }
 
@@ -111,12 +104,6 @@ export default class QuestionDisplay extends Component {
   processIncorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.advanceTurn();
-  }
-
-  processGameOver = () => {
-    // query new questions
-    this.resetQuestionState();
-    this.props.processGameOver();
   }
 
   hydrateStateWithLocalStorage() {
