@@ -39,6 +39,11 @@ export default class Question extends Component {
           <div className="answer">
             <h4>Answer:</h4>
             <p>{question.answer}</p>
+            {this.props.gameSettings.gameMode === 'shout-out' && ( 
+              <div>
+                <button onClick={this.props.toggleScoring}>Go to scoring...</button>
+              </div>
+            )}
             {this.props.gameSettings.gameMode === 'turn-based' && ( 
               <div>
                 <button onClick={this.props.processCorrectAnswer}>Correct!</button>

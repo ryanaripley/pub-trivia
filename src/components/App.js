@@ -14,8 +14,8 @@ class App extends Component {
     players: [],
     gameSettings: {
       gameMode: 'shout-out', // or 'shout-out'
-      useSampleQuestions: true,
-      numberOfQuestions: 10,
+      useSampleQuestions: false,
+      numberOfQuestions: 50,
       readQuestions: true
     },
     settingsMenuOpen: false,
@@ -100,6 +100,12 @@ class App extends Component {
     const nextPlayer = currentPlayer < players.length - 1 ? currentPlayer + 1 : 0;
     this.setState({
       currentPlayer: nextPlayer
+    })
+  }
+
+  enterScoringPhase = () => {
+    this.setState({
+      gamePhase: 'scoring'
     })
   }
 

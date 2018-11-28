@@ -12,17 +12,19 @@ export default class GameOver extends Component {
     const winnersList = arrayToSentence(winnerNames);
     return (
       <div className="App-content">
-        <h2>Game Over</h2>
-        <p>
-          {winnersList} won.
-          {winners.length > 1 && (
-            <span>Ties are cool. Share the victory.</span>
-          )}
-        </p>
-        <p>
-          <button onClick={this.props.startNewGame}>New game</button><br />
-          <button onClick={this.props.startNewGameSamePlayers}>New game with same players</button>
-        </p>
+        <div className="app-content-inside">
+          <h2>Game Over</h2>
+          <p>
+            {winnersList} won.
+            {winners.length > 1 && (
+              <span>Ties are cool. Share the victory.</span>
+            )}
+          </p>
+          <p>
+            <button onClick={this.props.startNewGame}>New game</button><br />
+            <button onClick={this.props.startNewGameSamePlayers}>New game with same players</button>
+          </p>
+        </div>
       </div>
     )
   }

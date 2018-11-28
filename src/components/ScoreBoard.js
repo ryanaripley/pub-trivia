@@ -9,7 +9,7 @@ export default class ScoreBoard extends Component {
   }
 
   render() {
-    const { currentPlayer, gameSettings, showAnswer } = this.props;
+    const { currentPlayer, gameSettings } = this.props;
     return (
       <div className="Score-board">
         <ul className="scoreboard-list">
@@ -19,20 +19,9 @@ export default class ScoreBoard extends Component {
             <li key={index} className={liClass}>
               <span className="player-name">{player.name}</span> 
               <span className="player-score">{player.score}</span>
-              {gameSettings.gameMode === 'shout-out' && (
-                <div className="player-score-buttons">
-                  <button data-index={index} data-score="-1" onClick={this.updateScore}>&#8722;</button>
-                  <button data-index={index} data-score="1" onClick={this.updateScore}>&#43;</button>
-                </div>
-              )}
             </li>
           )
         })}
-        {showAnswer && (
-          <li>
-            <button onClick={this.props.processNextQuestion} className="next-question">Next question &rarr;</button>
-          </li>
-        )}
         </ul>
         
       </div>

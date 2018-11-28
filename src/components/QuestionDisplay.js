@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import ScoreBoard from './ScoreBoard';
 import CategorySelection from './CategorySelection';
 import Question from './Question';
+import ScoringDisplay from './ScoringDisplay';
 
 import SampleQuestions from '../data/SampleQuestions';
 
@@ -13,6 +14,7 @@ export default class QuestionDisplay extends Component {
     questions: [],
     questionsLoading: false,
     showAnswer: false,
+    showScoring: false,
     currentQuestion: null
   }
 
@@ -94,6 +96,9 @@ export default class QuestionDisplay extends Component {
 
   processNextQuestion = () => {
     this.deleteCurrentQuestion();
+    this.setState({
+      showScoring: false
+    })
   }
 
   processCorrectAnswer = () => {
@@ -104,6 +109,12 @@ export default class QuestionDisplay extends Component {
   processIncorrectAnswer = () => {
     this.deleteCurrentQuestion();
     this.props.advanceTurn();
+  }
+
+  toggleScoring = () => {
+    this.setState({
+      showScoring: !this.state.showScoring
+    })
   }
 
   hydrateStateWithLocalStorage() {
@@ -146,43 +157,56 @@ export default class QuestionDisplay extends Component {
     const playerName = players[currentPlayer]["name"];
     return (
       <div className="Question-display">
-        <div className="App-content">
-          {this.props.gameSettings.gameMode === 'turn-based' && (
-            <h2 className="turn-notice"> It's {playerName}'s turn. </h2>
-          )}
-          <p>
-           There are {this.state.questions.length} questions remaining.&nbsp;
-          </p>
-          {!this.state.currentQuestion && (
-            <CategorySelection 
-              questions={this.state.questions} 
-              selectCategory={this.selectCategory} 
-          />
-          )}
-          {this.state.currentQuestion && (
-            <Question 
-              gameSettings={this.props.gameSettings}
-              question={this.state.questions[this.state.currentQuestion]} 
-              processCorrectAnswer={this.processCorrectAnswer}
-              processIncorrectAnswer={this.processIncorrectAnswer}
-              moveToScoringPhase={this.moveToScoringPhase}
-              showAnswer={this.state.showAnswer}
-              toggleShowAnswer={this.toggleShowAnswer}
-            />
-          )}
-        </div>
-
+        { !this.state.showScoring && (
+          <div className="App-content questions">
+            <div className="app-content-inside">
+              {this.props.gameSettings.gameMode === 'turn-based' && (
+                <h2 className="turn-notice"> It's {playerName}'s turn. </h2>
+              )}
+              <p>
+              There are {this.state.questions.length} questions remaining.&nbsp;
+              </p>
+              {!this.state.currentQuestion && (
+                <CategorySelection 
+                  questions={this.state.questions} 
+                  selectCategory={this.selectCategory} 
+              />
+              )}
+              {this.state.currentQuestion && (
+                <Question 
+                  gameSettings={this.props.gameSettings}
+                  question={this.state.questions[this.state.currentQuestion]} 
+                  processCorrectAnswer={this.processCorrectAnswer}
+                  processIncorrectAnswer={this.processIncorrectAnswer}
+                  toggleScoring={this.toggleScoring}
+                  moveToScoringPhase={this.moveToScoringPhase}
+                  showAnswer={this.state.showAnswer}
+                  toggleShowAnswer={this.toggleShowAnswer}
+                />
+              )}
+            </div>
+          </div>
+        )}
+        {this.state.showScoring && (
+          <div className="App-content scoring">
+            <div className="app-content-inside">
+              <ScoringDisplay 
+                gameSettings={this.props.gameSettings}
+                players={players}
+                updatePlayerScore={this.props.updatePlayerScore}
+                processNextQuestion={this.processNextQuestion}
+                updatePlayerScore={this.props.updatePlayerScore}
+              />
+            </div>
+          </div>
+        )}
         <div className="App-footer">
           <ScoreBoard
             currentPlayer={currentPlayer}
             gameSettings={this.props.gameSettings}
             players={players}
-            processNextQuestion={this.processNextQuestion}
-            showAnswer={this.state.showAnswer}
-            updatePlayerScore={this.props.updatePlayerScore}
           />
         </div>
-
       </div>
     )
   }
