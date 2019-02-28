@@ -202,14 +202,27 @@ input[type="radio"] {
   height: 100%;
 }
 
+
 .app-content-inside {
   max-width: 30em;
   margin: 0 auto;
   padding: 3em 1em 3em;
 }
+@media (min-width: 900px) {
+  .app-content-inside {
+    padding: 3em 0 0;
+    margin: 0 auto 0 100px;
+    max-width: 700px;
+  }
+}
 
 .App-content.questions {
   margin-bottom: 3em; /* To account for scoreboard */
+}
+@media (min-width: 900px) {
+  .App-content.questions {
+    margin-bottom: 0;
+  }
 }
 
 .App-content.scoring {
@@ -227,6 +240,15 @@ input[type="radio"] {
   bottom: 0;
   justify-content: center;
   width: 100%;
+}
+@media (min-width: 900px) {
+  .App-footer {
+    background: #555;
+    width: 200px;
+    right: 0;
+    top: 2.6rem;
+    padding: 1em;
+  }
 }
 
 .App-footer button {
@@ -285,6 +307,15 @@ input[type="radio"] {
   text-align: center;
 }
 
+@media (min-width: 900px) {
+  .Score-board ul {
+    display: block;
+  }
+  .Score-board li {
+    margin-bottom: 1em;
+  }
+}
+
 .Score-board .player-name {
   font-size: .9em;
   display: block;
@@ -338,7 +369,6 @@ input[type="radio"] {
   margin: 0 auto;
 }
 
-
 .score-slider {
   -webkit-appearance: none;
   background: rgba(255,255,255,.4);
@@ -349,6 +379,12 @@ input[type="radio"] {
   outline: none;
   transition: background .1s;
   width: 100%;
+}
+
+@media (min-width: 900px) {
+  .player-score-input {
+    width: 300px;
+  }
 }
   
 .score-slider:hover {
@@ -405,4 +441,9 @@ input[type="radio"] {
 
 .Question button {
   margin-top: 1em;
+}
+
+.Question .question-year {
+  font-weight: normal;
+  color: rgba(255, 255, 255, .7);
 }
