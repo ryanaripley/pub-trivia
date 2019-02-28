@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { arrayToSentence } from '../helpers';
 
+import ScoreBoard from './ScoreBoard';
+
 export default class GameOver extends Component {
   render() {
     const { players } = this.props;
@@ -24,6 +26,12 @@ export default class GameOver extends Component {
             <button onClick={this.props.startNewGame}>New game</button><br />
             <button onClick={this.props.startNewGameSamePlayers}>New game with same players</button>
           </p>
+        </div>
+        <div className="App-footer">
+          <ScoreBoard
+            gameSettings={this.props.gameSettings}
+            players={players}
+          />
         </div>
       </div>
     )

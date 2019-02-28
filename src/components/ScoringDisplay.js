@@ -49,7 +49,7 @@ export default class ScoringDisplay extends Component {
         <p>Score the previous question:</p>
           {this.props.players.map((player, index) => {
           return (
-            <div key={index}>
+            <div key={index} className="player-score-input">
               <label>
                 <div className="scoring-name">{player.name}</div>
                 <div className="scores">

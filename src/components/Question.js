@@ -24,11 +24,12 @@ export default class Question extends Component {
 
   render() {
     const { question, showAnswer } = this.props;
+    const questionYear = question.airdate.slice(0, 4);
     return (
       <div className="Question">
         <h4>Category:</h4>
         <p className="category">{question.category.title}</p>
-        <h4>Question:</h4>
+        <h4>Question: <span className="question-year">{ questionYear }</span></h4>
         <p className="question">{question.question}</p>
         
         <button onClick={this.props.toggleShowAnswer}>
