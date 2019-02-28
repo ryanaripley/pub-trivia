@@ -14,7 +14,7 @@ class App extends Component {
     players: [],
     gameSettings: {
       gameMode: 'shout-out', // or 'shout-out'
-      useSampleQuestions: true,
+      useSampleQuestions: false,
       numberOfQuestions: 50,
       readQuestions: true
     },
